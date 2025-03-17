@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Adminダッシュボード')
+@section('title', '管理者専用ページ')
 
 @section('content')
-    <h2 class="text-center mb-4">Adminダッシュボード!</h2>
-    <p class="text-center">ログイン中: {{ Auth::user()->name }}</p>
+    <h2 class="text-center mb-4">管理者専用ページ</h2>
     <div class="d-flex justify-content-center">
-        <a href="{{ route('home') }}" class="btn btn-outline-secondary mx-2">Adminトップページに戻る</a>
+        <a href="{{ route('home') }}" class="btn btn-outline-secondary mx-2">トップページに戻る</a>
     </div>
     <form class="text-center mt-4" action="{{ route('logout') }}" method="POST" class="d-inline">
         @csrf

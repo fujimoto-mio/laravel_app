@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'ユーザー登録')
+@section('title', 'Adminユーザー登録')
 
 @section('content')
 <h2 class="text-center mb-4">ユーザー登録</h2>

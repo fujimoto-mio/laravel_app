@@ -14,8 +14,9 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        //'guard' => 'admin', // デフォルトをadminに変更
+        'guard' => 'web', // デフォルトで使用されるガード
+        'passwords' => 'users',
     ],
 
     /*

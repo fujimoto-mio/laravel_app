@@ -7,23 +7,16 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 
-Route::get('/',[TaskController::class,'index']); //一覧表示用のURLとコントローラ場所
+//Route::get('/',[TaskController::class,'index']); //一覧表示用のURLとコントローラ場所 todoListの変更
 Route::post('/create',[TaskController::class,'create']);  //タスク追加用のURLとコントローラ場所
 Route::post('/edit',[TaskController::class,'edit']);  //タスク更新用
 Route::post('/delete',[TaskController::class,'delete']);  //タスク削除用
 
 Route::resource('tasks', TaskController::class);
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('login', [LoginController::class, 'showLoginForm'])->middleware('guest')->name('login');
-
-// トップページのルート
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// ダッシュボードのルート（ログインが必要）
+// ダッシュボードのルート（通常ユーザでのログインが必要）
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware('auth')->name('dashboard');
 
 // ユーザー登録のルート
@@ -37,8 +30,17 @@ Route::post('login', [LoginController::class, 'login']);
 // ログアウトのルート
 Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
 
-// ダッシュボードのルート（ログインが必要）
-Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+// 管理者用のルート
+Route::prefix('admin')->group(function () {
+    Route::get('admin.index', function () {
+        return view('admin.index');
+    })->name('admin.index')->middleware('admin');
+});
 
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register')->middleware('guest');
-Route::post('register', [RegisterController::class, 'register']);
+// プロフィール（ログイン中のみ閲覧可）
+Route::middleware('authenticated')->group(function () {
+    Route::get('profile', function () {
+        return view('profile');
+    });
+});
+

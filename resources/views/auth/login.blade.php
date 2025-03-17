@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'ログイン')
+@section('title', 'Adminログイン')
 
 @section('content')
-<h2 class="text-center mb-4">ログイン</h2>
+<h2 class="text-center mb-4">Adminログイン</h2>
 
 <form action="{{ route('login') }}" method="POST">
     @csrf

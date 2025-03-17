@@ -38,7 +38,15 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        // 2. 認証を試みる
+
+        // 2. 管理者ユーザーとしての認証を試みる
+        if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
+            // 認証成功: 管理者ページにリダイレクト
+            return redirect()->intended(route('admin.index'));
+        }
+
+        // 3. 認証を試みる
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             // 認証に成功したら、セッションを再生成する
             $request->session()->regenerate();
@@ -51,9 +59,5 @@ class LoginController extends Controller
         return back()->withErrors([
             'email' => 'ログイン情報が正しくありません。',
         ])->onlyInput('email');
-    }
-
-    private function middleware(string $string)
-    {
     }
 }
