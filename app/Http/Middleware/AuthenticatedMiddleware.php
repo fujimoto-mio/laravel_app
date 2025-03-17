@@ -19,6 +19,6 @@ class AuthenticatedMiddleware
         if (Auth::check() || Auth::guard('admin')->check()) {
             return $next($request);
         }
-        return $next($request);
+        return redirect()->route('login');
     }
 }
